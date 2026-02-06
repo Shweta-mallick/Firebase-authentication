@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,6 +15,8 @@ function Dashboard() {
 
     const {user, setUser} = useContext(AppContext);
 
+    const [status, setStatus] = useState('single');
+
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -22,6 +24,10 @@ function Dashboard() {
             navigate('/');
         }
     }, [user,navigate]);
+
+    const handleStatus = (event)=>{
+      setStatus(event.target.value);
+    }
 
     const handleLogout = async()=>{
         try{
@@ -59,7 +65,7 @@ function Dashboard() {
       </CardActionArea>
       <CardActions>
         <label for="relationship-status">Relationship Status: </label>
-        <select name='status' id='status-select'>
+        <select name='status' id='status-select' value={status} onChange={handleStatus}>
             <option value='single'>Single</option>
             <option value='committed'>Committed</option>
             <option value='searching'>Searching</option>
