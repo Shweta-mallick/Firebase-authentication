@@ -7,6 +7,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { AppContext } from '../App';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/Firebase';
@@ -55,21 +58,22 @@ function Dashboard() {
             'height': 70,
             'objectFit':'cover',
             'borderRadius': '50%',
+            'padding': '10px'
           }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {user.email}
+            {user.displayName}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <label for="relationship-status">Relationship Status: </label>
-        <select name='status' id='status-select' value={status} onChange={handleStatus}>
-            <option value='single'>Single</option>
-            <option value='committed'>Committed</option>
-            <option value='searching'>Searching</option>
-        </select>
+        <InputLabel id="relationship-status">Status: </InputLabel >
+        <Select name='status' id='status-select' value={status} onChange={handleStatus} label="relationship-status">
+            <MenuItem value='single'>Single</MenuItem>
+            <MenuItem value='committed'>Committed</MenuItem>
+            <MenuItem value='searching'>Searching</MenuItem>
+        </Select>
         {/* <Button size="small" color="primary">
           Share
         </Button> */}
@@ -84,3 +88,14 @@ function Dashboard() {
 export default Dashboard
 
 
+        // <Select
+        //   labelId="demo-simple-select-label"
+        //   id="demo-simple-select"
+        //   value={age}
+        //   label="Age"
+        //   onChange={handleChange}
+        // >
+        //   <MenuItem value={10}>Ten</MenuItem>
+        //   <MenuItem value={20}>Twenty</MenuItem>
+        //   <MenuItem value={30}>Thirty</MenuItem>
+        // </Select>

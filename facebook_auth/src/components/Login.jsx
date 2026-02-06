@@ -21,7 +21,7 @@ function Login() {
         try{
             const result = await signInWithPopup(auth, provider)
                 setUser(result.user);
-                // console.log(result)
+                console.log(result)
                 navigate('/dashboard');
         }catch(error){
             console.log(error);
