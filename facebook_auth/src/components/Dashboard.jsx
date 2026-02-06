@@ -12,7 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { AppContext } from '../App';
 import { signOut } from 'firebase/auth';
-import { auth } from '../config/Firebase';
+import { auth, db } from '../config/Firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 function Dashboard() {
 
@@ -28,8 +29,18 @@ function Dashboard() {
         }
     }, [user,navigate]);
 
-    const handleStatus = (event)=>{
+    const handleStatus = async (event)=>{
       setStatus(event.target.value);
+
+      try{
+        await setDoc(doc(db, "users", user.uid),{
+          relationshipStatus: status,
+          displayName: user.displayName,
+          lastUpdated: new Date()
+        }, {merge: true})
+      }catch(error){
+        console.log(error);
+      }
     }
 
     const handleLogout = async()=>{
